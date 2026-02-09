@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FormChallenge  - Rishu</title>
+    <title>FormChallenge - Rishu</title>
 
     <style>
+        /* GLOBAL RESET & BOX SIZING */
         * {
             margin: 0;
             padding: 0;
             color: hsl(0, 0%, 80%);
             font-size: 1rem;
+            box-sizing: border-box; /* Crucial for responsiveness */
+            font-family: sans-serif; /* Added a fallback font for better cross-device rendering */
         }
 
         html {
@@ -19,17 +22,13 @@
         }
 
         body {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            min-height: 100vh; /* Changed from height to min-height to allow scrolling on small screens */
             display: flex;
-
-            /* background: url("./4464360.jpg") no-repeat fixed center/cover;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px); */
-            
-            background: radial-gradient(circle farthest-side at 150% 150%, hsl(170, 96%, 15%), hsl(170, 20%, 6%) );
+            background: radial-gradient(circle farthest-side at 150% 150%, hsl(170, 96%, 15%), hsl(170, 20%, 6%));
             justify-content: center;
             align-items: center;
+            padding: 20px; /* Added padding so content doesn't touch edges on mobile */
         }
 
         .form_back {
@@ -37,12 +36,13 @@
             flex-direction: column;
             justify-content: center;
             gap: 20px;
-            width: 600px;
+            width: 100%;       /* Fluid width */
+            max-width: 600px;  /* Max width constraint */
             height: fit-content;
         }
 
         .sub_section {
-            width: 600px;
+            width: 100%;      /* Fluid width */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -53,18 +53,17 @@
             padding: 24px 12px;
 
             background-color: hsla(0, 0%, 60%, 0.05);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
 
             box-shadow:
                 inset -4px -4px 10px hsla(0, 0%, 0%, 1),
                 inset 2px 2px 10px hsla(0, 0%, 100%, 0.3);
         }
 
-
         .input_fieldBox {
-
-            width: fit-content;
+            width: 100%;       /* Fluid width */
+            max-width: 480px;  /* Max width constraint */
             height: fit-content;
 
             border-top: 1.5px solid hsla(0, 0%, 80%, 0.15);
@@ -78,12 +77,9 @@
         }
 
         .labelText {
-
             font-size: 1.3rem;
             font-weight: 900;
-
             margin-bottom: 4px;
-
             background: linear-gradient(90deg,
                     hsla(0, 100%, 73%, 0.8), hsla(164, 100%, 63%, 0.75));
             -webkit-background-clip: text;
@@ -94,14 +90,14 @@
         .input_box {
             border: hidden;
             border-radius: 12px;
-            width: 480px;
-            height: 32px;
+            width: 100%; /* Make input fill its container */
+            height: 40px; /* Slightly taller for better mobile touch */
             padding: 0px 20px;
             background-color: hsla(0, 0%, 0%, 0.2);
             backdrop-filter: blur(2px);
             -webkit-backdrop-filter: blur(2px);
             box-shadow:
-                inset 3px 3px 3px hsla(0, 0%, 0%,1),
+                inset 3px 3px 3px hsla(0, 0%, 0%, 1),
                 inset -2px -2px 3px hsla(0, 0%, 50%, 0.2);
         }
 
@@ -111,8 +107,9 @@
 
         .age_box {
             background-color: hsla(0, 0%, 60%, 0);
-            width: 50px;
+            width: 60px; /* Fixed width for age is fine, but needs to be small */
             height: 40px;
+            text-align: center;
         }
 
         .age_box::-webkit-outer-spin-button,
@@ -138,16 +135,20 @@
         .box_title {
             font-size: 3rem;
             font-weight: 900;
+            text-align: center; /* Center title on mobile */
         }
 
         .last_section {
             display: flex;
             justify-content: space-around;
             align-items: center;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            gap: 15px;      /* Spacing when wrapped */
         }
 
         .checktext {
             display: inline-block;
+            font-size: 0.9rem; /* Slightly smaller for mobile fit */
         }
 
         .checkbox {
@@ -155,25 +156,54 @@
             width: 20px;
             height: 20px;
             accent-color: transparent;
-            /* background-color: rgb(0, 136, 255); */
+            min-width: 20px; /* Prevent crushing on small screens */
         }
 
         .term_div {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            align-items: center; /* Vertically align checkbox and text */
+            gap: 15px;
             margin: 12px 0;
+            text-align: left;
         }
 
         .submit_button {
-            width: 50%;
+            width: 100%;        /* Expand on mobile */
+            max-width: 300px;   /* Cap on desktop */
             margin: auto;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .submit_button:active {
+            transform: scale(0.98);
         }
 
         input:focus {
             color: hsl(0, 0%, 80%);
             outline: none;
             background-color: hsla(0, 0%, 40%, 0.2);
+        }
+
+        /* MEDIA QUERIES */
+        @media (max-width: 480px) {
+            .box_title {
+                font-size: 2rem;
+            }
+            
+            .labelText {
+                font-size: 1.1rem;
+            }
+
+            .sub_section {
+                padding: 20px 10px;
+            }
+            
+            .drop_box {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 
@@ -222,7 +252,7 @@
         </div>
 
         <div class="last_section">
-            <input type="number" class="input_box age_box" placeholder="eg. 19">
+            <input type="number" class="input_box age_box" placeholder="Age">
 
             <div class="sub_section drop_box">
                 <label for="Tsize" class="labelText ">T-Shirt Size</label>
@@ -236,11 +266,11 @@
             </div>
         </div>
         <div class="term_div">
-            <input type="checkbox" name="checkbox" class="input_box checkbox" required>
-            <label for="checkbox" class="labelText checktext">* I agree to the Terms of Service</label>
+            <input type="checkbox" id="tos" name="checkbox" class="input_box checkbox" required>
+            <label for="tos" class="labelText checktext">* I agree to the Terms of Service</label>
         </div>
 
-        <input type="submit" class="sub_section submit_button">
+        <input type="submit" value="Submit" class="sub_section submit_button">
     </form>
 
     <script>
